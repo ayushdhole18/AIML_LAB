@@ -1,0 +1,16 @@
+def vacuum_agent(roomA, roomB):
+location = "A"
+while roomA == "Dirty" or roomB == "Dirty":
+if location == "A":
+if roomA == "Dirty":
+roomA = "Clean"
+print("Cleaned Room A")
+location = "B"
+
+else:
+if roomB == "Dirty":
+roomB = "Clean"
+print("Cleaned Room B")
+location = "A"
+print("Both rooms are clean")
+vacuum_agent("Dirty", "Dirty")
