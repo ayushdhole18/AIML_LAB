@@ -1,0 +1,5 @@
+def smart_light_agent(human_present, outside_light):
+if human_present and not outside_light:
+return "Light ON"
+else:
+return "Light OFF"
