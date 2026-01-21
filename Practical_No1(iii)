@@ -1,0 +1,81 @@
+def get_neighbors(state):
+neighbors = []
+idx = state.index(0) 
+r, c = idx // 3, idx % 3
+
+moves = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+for dr, dc in moves:
+nr, nc = r + dr, c + dc
+if 0 <= nr < 3 and 0 <= nc < 3:
+nidx = nr * 3 + nc
+
+new_state = list(state)
+new_state[idx], new_state[nidx] = new_state[nidx],
+
+new_state[idx]
+
+neighbors.append(tuple(new_state))
+
+return neighbors
+def reconstruct_path(parent, goal):
+
+path = []
+current = goal
+
+while current is not None:
+path.append(current)
+current = parent[current]
+
+path.reverse()
+return path
+
+def print_board(state):
+
+for i in range(0, 9, 3):
+row = state[i:i+3]
+print(" ".join("□" if x == 0 else str(x) for x in
+
+row))
+print()
+#BFS for 8-Puzzle
+def bfs_8_puzzle(start, goal):
+
+# Initialize BFS queue
+queue = deque([start])
+# Track visited states to avoid revisiting
+visited = set([start])
+# Parent mapping for path reconstruction
+parent = {start: None}
+while queue:
+current = queue.popleft()
+# Goal test
+if current == goal:
+return reconstruct_path(parent, current)
+# Explore neighbors
+for neighbor in get_neighbors(current):
+if neighbor not in visited:
+visited.add(neighbor)
+parent[neighbor] = current
+queue.append(neighbor)
+
+return None
+#Main Program Execution
+if __name__ == "__main__":
+# Initial state (0 represents blank tile)
+start = (1, 2, 3,
+4, 0, 6,
+7, 5, 8)
+# Goal state
+goal = (1, 2, 3,
+4, 5, 6,
+7, 8, 0)
+# Solve the puzzle
+path = bfs_8_puzzle(start, goal)
+if path is None:
+print("No solution found.")
+
+else:
+print(f"Solution found in {len(path) - 1} moves.\n")
+for step, state in enumerate(path):
+print(f"Step {step}:")
+print_board(state)
